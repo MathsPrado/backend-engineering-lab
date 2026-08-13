@@ -1,6 +1,6 @@
 # 🚀 Backend Engineering Lab
 
-Repositório de laboratório prático focado em **Engenharia de Backend de Alta Performance**, **Arquitetura de Software (.NET)**, **Microserviços**, **Mensageria** e **Observabilidade**.
+Repositório de laboratório prático focado em **Performance**, **Arquitetura de Software (.NET)**, **Microserviços**, **Mensageria** e **Observabilidade**.
 
 ---
 
@@ -64,4 +64,4 @@ dotnet run -c Release -- --benchmark
 ---
 
 ## 📜 Licença
-Este repositório é mantido para fins de estudos avançados de engenharia de software e performance em .NET.
+Este repositório é mantido para fins de estudos em .NET.
