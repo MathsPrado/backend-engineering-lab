@@ -1,0 +1,25 @@
+# .NET Build Artifacts
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+BenchmarkDotNet.Artifacts/
+*.user
+*.suo
+
+# IDE Files
+.vs/
+.vscode/
+.idea/
+*.swp
+*.userossc
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Node / React
+node_modules/
+dist/
+build/
+.next/
