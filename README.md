@@ -1,67 +1,38 @@
 # 🚀 Backend Engineering Lab
 
-Repositório de laboratório prático focado em **Performance**, **Arquitetura de Software (.NET)**, **Microserviços**, **Mensageria** e **Observabilidade**.
+Repositório de laboratório prático focado em **Performance**, **Arquitetura de Software (.NET)**, **Microserviços**, **Mensageria** e **Observabilidade**. Este sumário serve como um HUB mestre (índice genérico) para navegar entre os diversos ecossistemas e exercícios.
 
 ---
 
-## 📂 Estrutura do Repositório
+## 📂 Visão Geral dos Módulos
 
-```text
-backend-engineering-lab/
-├── 01-dotnet-internals-and-performance/
-│   ├── 01-span-and-memory-benchmarks/    # Manipulação de Texto, Span<T>, Memory<T> e BenchmarkDotNet
-│   └── 02-async-internals-and-valuetask/ # Async state machines, ValueTask vs Task
-├── 02-architecture-and-ddd/
-│   ├── 01-clean-architecture-template/    # DDD, Clean Architecture e Result Pattern
-│   └── 02-cqrs-mediatr-sample/           # CQRS com MediatR e Pipeline Behaviors
-├── 03-microservices-and-resilience/      # Resilience (Polly), Rate Limiting, API Gateways
-├── 04-messaging-and-event-driven/        # RabbitMQ, Kafka e Event Sourcing
-├── 05-cloud-containers-and-observability/# Docker, OpenTelemetry, Jaeger e Prometheus
-└── 06-react-frontend/                    # Front-ends e Dashboards de suporte
-```
+As seções deste repositório abordam exercícios práticos e isolados sobre diversos ramos da engenharia. Cada módulo contém subpastas com experimentos dedicados.
 
----
+### Módulo 01: .NET Internals & Performance
+Focado em otimização de memória, alocações, zero-allocation (`Span<T>`) e funcionamento interno do GC (Garbage Collector).
 
-## 🛠️ Módulos e Experimentos
+### Módulo 02: Architecture & DDD
+Implementações de Domain-Driven Design, padrão estrutural de API e CQRS.
 
-### 01. .NET Internals & Performance
+### Módulo 03: Microservices & Resilience
+Rate limiting, API Gateways e tolerância a falhas utilizando bibliotecas como Polly.
 
-#### Experimento 01: Manipulação de Texto & Alocação de Memória (`Span<T>` e `Memory<T>`)
-- **Caminho**: `01-dotnet-internals-and-performance/01-span-and-memory-benchmarks/`
-- **Objetivo**: Extrair dados e fatiar strings de log de alto volume sem gerar alocações na Heap.
-- **Roteiro Didático**: [ROTEIRO_EXPERIMENTO_A.md](file:///Users/matheusprado/Desktop/projeto%206%20meses%20estudo/01-dotnet-internals-and-performance/01-span-and-memory-benchmarks/ROTEIRO_EXPERIMENTO_A.md)
+### Módulo 04: Messaging & Event-Driven
+Padrões publisher-subscriber utilizando RabbitMQ / Kafka e Event Sourcing.
 
-##### Resultados de Benchmark (Empíricos com BenchmarkDotNet em Apple M1 / .NET 10.0):
-
-| Método | Tempo Médio (`Mean`) | Ratio | Gen 0 | Alocado na Heap (`Allocated`) |
-| :--- | :---: | :---: | :---: | :---: |
-| **`Extract ID - Span<T> (Zero Alloc)`** | **6.76 ns** | **0.51** | **-** | **0 Bytes** |
-| **`Parse Full - Span<T> (Zero Alloc)`** | **7.57 ns** | **0.57** | **-** | **0 Bytes** |
-| **`Parse Full - Memory<T>`** | **10.39 ns** | **0.78** | **-** | **0 Bytes** |
-| **`Extract ID - Traditional (.Substring)`** | **13.35 ns** | **1.00** | **0.0063** | **40 Bytes** |
-| **`Parse Full - Traditional (.Split)`** | **56.88 ns** | **4.26** | **0.0573** | **360 Bytes** |
-
-> [!TIP]
-> **Ganho Observado**: O método `Span<T>` zerou a alocação de memória na Heap (**0 Bytes** / **Zero-Alloc**) e executou **7.5x mais rápido** que a abordagem tradicional `.Split()`.
+### Módulo 05: Cloud, Containers & Observability
+Dockerização de serviços, trace distribuído em OpenTelemetry, subida de pacotes para Jaeger e Prometheus.
 
 ---
 
-## 💻 Como Executar os Experimentos
+## 💻 Como Acessar e Rodar os Exercícios
 
-### Experimento 01 - Span & Memory Benchmarks
+Devido à amplitude deste laboratório, os detalhes técnicos e as rotinas de configuração habitam dentro do diretório específico de cada experimento.
 
-```bash
-# 1. Navegar até o repositório do experimento
-cd 01-dotnet-internals-and-performance/01-span-and-memory-benchmarks/ExperimentoA.SpanMemory
-
-# 2. Executar a verificação funcional (Debug)
-dotnet run -c Debug
-
-# 3. Executar a suíte de BenchmarkDotNet (Release)
-dotnet run -c Release -- --benchmark
-```
+Para explorar:
+Navegue livremente pelas pastas dos Módulos listados acima. Dentro de cada subpasta de exercício, você encontrará a explicação detalhada de cada caso, roteiros de estudos teóricos e os comandos exatos de como executar aquela aplicação localmente.
 
 ---
 
 ## 📜 Licença
-Este repositório é mantido para fins de estudos em .NET.
+Este repositório é um diário de engenharia mantido para fins de estudos avançados em engenharia de software e backend (.NET).
