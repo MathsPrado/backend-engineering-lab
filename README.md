@@ -35,4 +35,4 @@ Navegue livremente pelas pastas dos Módulos listados acima. Dentro de cada subp
 ---
 
 ## 📜 Licença
-Este repositório é um diário de engenharia mantido para fins de estudos avançados em engenharia de software e backend (.NET).
+Este repositório é um diário mantido para fins de estudos em backend (.NET).
