@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: laboratorio-dotnet-estudos
+    env: docker
+    dockerfilePath: ./07-blog/Blog.Web/Dockerfile
+    branch: main
+    autoDeploy: true
+    ignoredPaths:
+      - README.md
+      - "*.md"
+      - .gitignore
+      - .vscode/*
