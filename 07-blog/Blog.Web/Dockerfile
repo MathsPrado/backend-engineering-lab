@@ -23,6 +23,9 @@ COPY --from=build /src/04-messaging-and-event-driven /src/04-messaging-and-event
 COPY --from=build /src/05-cloud-containers-and-observability /src/05-cloud-containers-and-observability
 COPY --from=build /src/06-react-frontend /src/06-react-frontend
 
+# Previne estouro de inotify (limit 128) em ambientes Linux compartilhados como Render
+ENV DOTNET_USE_POLLING_FILE_WATCHER=true
+ENV DOTNET_HOSTBUILDER__RELOADCONFIGONCHANGE=false
 ENV ASPNETCORE_URLS=http://+:8080
 EXPOSE 8080
 

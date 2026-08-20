@@ -3,6 +3,12 @@ using Blog.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Evita o erro System.IO.IOException (inotify limits) em contêineres Linux zerando o reloadOnChange automático de arquivos de configuração
+builder.Configuration.Sources.Clear();
+builder.Configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: false);
+builder.Configuration.AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: false);
+builder.Configuration.AddEnvironmentVariables();
+
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
