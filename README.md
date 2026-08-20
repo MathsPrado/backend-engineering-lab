@@ -1,4 +1,4 @@
-# 🚀 Backend Engineering Lab
+# 🚀 Laboratório .NET Estudos
 
 Repositório de laboratório prático focado em **Performance**, **Arquitetura de Software (.NET)**, **Microserviços**, **Mensageria** e **Observabilidade**. Este sumário serve como um HUB mestre (índice genérico) para navegar entre os diversos ecossistemas e exercícios.
 
