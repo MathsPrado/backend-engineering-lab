@@ -15,7 +15,14 @@ WORKDIR /app
 # Copia a aplicação compilada
 COPY --from=build /app/publish .
 
-# Copia os módulos de estudo (01-* a 06-*) para que o FileSystemPostRepository os leia em produção
+# Copia os módulos de estudo (01-* a 06-*) para dentro de /app e /src para leitura do FileSystemPostRepository
+COPY --from=build /src/01-dotnet-internals-and-performance /app/01-dotnet-internals-and-performance
+COPY --from=build /src/02-architecture-and-ddd /app/02-architecture-and-ddd
+COPY --from=build /src/03-microservices-and-resilience /app/03-microservices-and-resilience
+COPY --from=build /src/04-messaging-and-event-driven /app/04-messaging-and-event-driven
+COPY --from=build /src/05-cloud-containers-and-observability /app/05-cloud-containers-and-observability
+COPY --from=build /src/06-react-frontend /app/06-react-frontend
+
 COPY --from=build /src/01-dotnet-internals-and-performance /src/01-dotnet-internals-and-performance
 COPY --from=build /src/02-architecture-and-ddd /src/02-architecture-and-ddd
 COPY --from=build /src/03-microservices-and-resilience /src/03-microservices-and-resilience
