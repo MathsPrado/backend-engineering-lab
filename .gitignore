@@ -20,6 +20,6 @@ Thumbs.db
 
 # Node / React
 node_modules/
-dist/
+/06-react-frontend/dist/
 build/
 .next/
