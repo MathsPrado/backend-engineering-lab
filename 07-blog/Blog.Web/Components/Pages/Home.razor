@@ -1,0 +1,149 @@
+@page "/"
+@using Blog.Web.Models
+@using Blog.Web.Services
+@inject FileSystemPostRepository PostRepository
+
+<PageTitle>Backend Engineering Lab - Blog</PageTitle>
+
+<!-- Hero Section -->
+<div class="hero-section mb-5 text-center">
+    <div class="container">
+        <h1 class="hero-title display-4 mb-3">Laboratório de Engenharia Backend</h1>
+        <p class="lead text-slate-300 max-w-2xl mx-auto">
+            Índice interativo de roteiros de estudo, benchmarks de alta performance e arquitetura .NET 10.
+        </p>
+    </div>
+</div>
+
+<div class="container mb-5">
+    @if (_isLoading)
+    {
+        <div class="text-center py-5">
+            <div class="spinner-border text-info" role="status">
+                <span class="visually-hidden">Carregando estudos...</span>
+            </div>
+            <p class="text-secondary mt-3">Carregando roteiros do sistema de arquivos...</p>
+        </div>
+    }
+    else
+    {
+        <!-- Barra de Filtros e Busca -->
+        <div class="row align-items-center mb-4 g-3">
+            <!-- Filtro por Categoria/Módulo -->
+            <div class="col-md-8 d-flex flex-wrap gap-2">
+                <button class="btn btn-filter @(_selectedCategory == "all" ? "active" : "")" 
+                        @onclick='() => SelectCategory("all")'>
+                    <i class="bi bi-grid-fill me-1"></i> Todos os Módulos (@_allPosts.Count)
+                </button>
+                @foreach (var cat in _categories)
+                {
+                    int count = _allPosts.Count(p => p.Category == cat);
+                    <button class="btn btn-filter @(_selectedCategory == cat ? "active" : "")" 
+                            @onclick='() => SelectCategory(cat)'>
+                        @cat (@count)
+                    </button>
+                }
+            </div>
+
+            <!-- Busca por texto -->
+            <div class="col-md-4">
+                <div class="input-group">
+                    <span class="input-group-text bg-slate-800 border-secondary text-secondary">
+                        <i class="bi bi-search"></i>
+                    </span>
+                    <input type="text" class="form-control bg-slate-800 border-secondary text-light placeholder-slate-400" 
+                           placeholder="Buscar por título ou assunto..." 
+                           @bind="_searchTerm" @bind:event="oninput" />
+                </div>
+            </div>
+        </div>
+
+        <!-- Feed em Cards -->
+        @if (!FilteredPosts.Any())
+        {
+            <div class="alert alert-secondary text-center py-5 my-4 bg-slate-800 border-secondary text-slate-300">
+                <i class="bi bi-folder-x fs-1 text-warning d-block mb-2"></i>
+                <h5 class="fw-bold">Nenhum estudo encontrado</h5>
+                <p class="mb-0 text-secondary">Nenhum roteiro corresponde aos filtros selecionados.</p>
+            </div>
+        }
+        else
+        {
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                @foreach (var post in FilteredPosts)
+                {
+                    <div class="col">
+                        <div class="post-card p-4">
+                            <div class="d-flex align-items-center justify-content-between mb-3 gap-2">
+                                <span class="badge badge-module text-truncate">@post.Category</span>
+                                <span class="badge badge-submodule text-truncate">@post.Subcategory</span>
+                            </div>
+                            
+                            <h4 class="card-title text-light mb-3 fw-bold h5">
+                                <a href="/post/@post.Slug" class="text-white text-decoration-none hover-blue">
+                                    @post.Title
+                                </a>
+                            </h4>
+                            
+                            <p class="card-text text-slate-400 flex-grow-1 small">
+                                @post.Summary
+                            </p>
+
+                            <div class="border-top border-slate-700 pt-3 mt-3 d-flex align-items-center justify-content-between text-slate-500 extra-small">
+                                <span class="text-slate-400 small">
+                                    <i class="bi bi-calendar3 me-1"></i> @post.LastModified.ToString("dd/MM/yyyy")
+                                </span>
+                                <a href="/post/@post.Slug" class="btn btn-sm btn-outline-info rounded-pill px-3">
+                                    Ler estudo <i class="bi bi-arrow-right ms-1"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    }
+</div>
+
+@code {
+    private List<BlogPost> _allPosts = new();
+    private List<string> _categories = new();
+    private string _selectedCategory = "all";
+    private string _searchTerm = "";
+    private bool _isLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _allPosts = await PostRepository.GetAllPostsAsync();
+        _categories = await PostRepository.GetCategoriesAsync();
+        _isLoading = false;
+    }
+
+    private void SelectCategory(string category)
+    {
+        _selectedCategory = category;
+    }
+
+    private IEnumerable<BlogPost> FilteredPosts
+    {
+        get
+        {
+            var result = _allPosts.AsEnumerable();
+
+            if (_selectedCategory != "all")
+            {
+                result = result.Where(p => p.Category.Equals(_selectedCategory, StringComparison.OrdinalIgnoreCase));
+            }
+
+            if (!string.IsNullOrWhiteSpace(_searchTerm))
+            {
+                result = result.Where(p => 
+                    p.Title.Contains(_searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                    p.Summary.Contains(_searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                    p.Subcategory.Contains(_searchTerm, StringComparison.OrdinalIgnoreCase));
+            }
+
+            return result;
+        }
+    }
+}

@@ -1,0 +1,204 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap');
+
+:root {
+    --bg-dark: #0f172a;
+    --bg-card: #1e293b;
+    --border-color: #334155;
+    --accent-blue: #38bdf8;
+    --accent-purple: #a855f7;
+    --accent-green: #4ade80;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    line-height: 1.6;
+    margin: 0;
+}
+
+a {
+    color: var(--accent-blue);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: #7dd3fc;
+}
+
+/* Glassmorphism Navbar */
+.navbar-custom {
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.95) 100%);
+    border-bottom: 1px solid var(--border-color);
+    padding: 3rem 0 2.5rem 0;
+}
+
+.hero-title {
+    background: linear-gradient(90deg, #38bdf8, #818cf8, #c084fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+/* Post Cards */
+.post-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.post-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent-blue);
+    box-shadow: 0 12px 24px -10px rgba(56, 189, 248, 0.15);
+}
+
+.badge-module {
+    background: linear-gradient(135deg, #0284c7 0%, #3b82f6 100%);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.75rem;
+    padding: 0.35em 0.75em;
+    border-radius: 6px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.badge-submodule {
+    background-color: #334155;
+    color: #cbd5e1;
+    font-weight: 500;
+    font-size: 0.75rem;
+    padding: 0.35em 0.65em;
+    border-radius: 6px;
+}
+
+/* Category Filter Buttons */
+.btn-filter {
+    background-color: #1e293b;
+    color: #94a3b8;
+    border: 1px solid var(--border-color);
+    font-weight: 500;
+    border-radius: 8px;
+    padding: 0.4rem 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.btn-filter:hover, .btn-filter.active {
+    background-color: #38bdf8;
+    color: #0f172a;
+    border-color: #38bdf8;
+    font-weight: 600;
+}
+
+/* Markdown Article Styling */
+.markdown-article {
+    background-color: #1e293b;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 2.5rem;
+    color: #e2e8f0;
+}
+
+.markdown-article h1, .markdown-article h2, .markdown-article h3, .markdown-article h4 {
+    color: #f8fafc;
+    font-weight: 700;
+    margin-top: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.markdown-article h1 {
+    font-size: 2.2rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+.markdown-article h2 {
+    font-size: 1.6rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 0.4rem;
+}
+
+.markdown-article h3 {
+    font-size: 1.3rem;
+}
+
+.markdown-article code:not(pre code) {
+    background-color: #0f172a;
+    color: #38bdf8;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9em;
+}
+
+.markdown-article pre {
+    background-color: #090d16 !important;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 1.2rem;
+    overflow-x: auto;
+}
+
+.markdown-article pre code {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.markdown-article table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+}
+
+.markdown-article th, .markdown-article td {
+    border: 1px solid var(--border-color);
+    padding: 0.75rem;
+}
+
+.markdown-article th {
+    background-color: #0f172a;
+    color: #f8fafc;
+}
+
+.markdown-article blockquote {
+    border-left: 4px solid var(--accent-blue);
+    background: rgba(56, 189, 248, 0.05);
+    padding: 1rem 1.2rem;
+    border-radius: 0 8px 8px 0;
+    margin: 1.5rem 0;
+    color: #cbd5e1;
+}
+
+/* Breadcrumb */
+.breadcrumb-custom .breadcrumb-item + .breadcrumb-item::before {
+    color: #64748b;
+}
+
+.breadcrumb-custom a {
+    color: #94a3b8;
+}
+
+.breadcrumb-custom .active {
+    color: #f8fafc;
+    font-weight: 500;
+}
